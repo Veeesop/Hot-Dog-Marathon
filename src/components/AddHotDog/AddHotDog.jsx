@@ -16,6 +16,7 @@ const AddHotDog = () => {
     //tensorflowjs model
     const [model, setModel] = useState(null);
     const [image, setImage] = useState('');
+    const [imageSrc, setImageSrc] = useState('')
     const [isHotdog, setIsHotdog] = useState(false)
     const [predictions, setPredictions] = useState([]);
     const [rating, setRating] = useState(0)
@@ -28,13 +29,12 @@ const AddHotDog = () => {
     const dispatch = useDispatch()
 
     const handleClick = () => {
+        // uploadImage(imageSrc)
         dispatch({
-            type: "ADD_HOT_DOG",
+            type: "ADD_HOT_DOG_PHOTO",
             payload: toSend
         })
     }
-
-
 
     const hotdogNothotdog = (isHotdog) => {
         if (isHotdog){
@@ -52,7 +52,7 @@ const AddHotDog = () => {
         user_id: user.id,
         rating: Number(rating),
         description: description,
-        photo: image,
+        photo: imageSrc,
         probability :probability
 
     }
@@ -154,6 +154,7 @@ const AddHotDog = () => {
           const imageSrc = webcamRef.current.getScreenshot();
           const imageBlob = dataURItoBlob(imageSrc);
           const imageUrl = URL.createObjectURL(imageBlob);
+          setImageSrc(imageSrc)
           setImage(imageUrl)
         },
         [webcamRef]

@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AddHotDog from '../AddHotDog/AddHotDog';
+import AddCompetition from '../AddCompetition/AddCompetition';
 
 import './App.css';
 
@@ -66,6 +67,13 @@ function App() {
             path="/addHotDog"
           >
             <AddHotDog />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/addCompetition"
+          >
+            <AddCompetition />
           </ProtectedRoute>
 
           <ProtectedRoute
