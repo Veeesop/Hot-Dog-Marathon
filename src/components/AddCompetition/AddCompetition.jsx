@@ -6,26 +6,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
+import { alpha } from '@material-ui/core/styles'
 
-const top100Films = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-    { title: 'The Godfather: Part II', year: 1974 },
-    { title: 'The Dark Knight', year: 2008 },
-    { title: '12 Angry Men', year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: 'Pulp Fiction', year: 1994 },
-    {
-      title: 'The Lord of the Rings: The Return of the King',
-      year: 2003,
-    },
-    { title: 'The Good, the Bad and the Ugly', year: 1966 },
-    { title: 'Fight Club', year: 1999 },
-    {
-      title: 'The Lord of the Rings: The Fellowship of the Ring',
-      year: 2001,
-    }
-  ];
 
 
 const AddCompetition = () =>{
@@ -37,20 +24,23 @@ const AddCompetition = () =>{
     },[])
 
     const [players, setPlayers] = useState([])
+    const [competitionName, setCompetitionName] = useState('')
+    const [value, setValue] = useState(new Date());
     const dispatch = useDispatch()
     const allUsers = useSelector((store) => store.allUsersReducer)
     const handleChange = (evt, value) => setPlayers(value)
     const handleClick = () => console.log(players)
-
+    
    
-
     return (
         <div>
+             <LocalizationProvider dateAdapter={AdapterLuxon}>
            <Stack spacing={2}>
+            <TextField id='competition-name' placeholder="Competition Name" onChange={evt => setCompetitionName(evt.target.value)}/>
              <Autocomplete
+             id='players'
         multiple
         value={players}
-        id="tags-outlined"
         options={allUsers}
         onChange={handleChange}
         getOptionLabel={(option) => option.username}
@@ -62,11 +52,26 @@ const AddCompetition = () =>{
           />
         )}
       />
+      <TextField
+        id='description'
+        multiline
+        rows={4}
+        placeholder="Description"
+      />
+      <MobileDatePicker
+          label="For mobile"
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
       <Button variant="contained" onClick={handleClick}>START COMPETITION</Button>
       </Stack>
+      </LocalizationProvider>
         </div>
        
     )
 }
 
-export default AddCompetition;
+export default AddCompetition
