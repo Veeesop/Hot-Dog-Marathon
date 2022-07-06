@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import * as mobileNet from "@tensorflow-models/mobilenet";
 import Rating from '@mui/material/Rating'
 import { GiHotDog } from 'react-icons/gi'
@@ -23,24 +24,33 @@ const AddHotDog = () => {
     const webcamRef = React.useRef(null);
     const canvasRef = useRef(null);
 
-    const hotdogNothotdog = (item) => {
-        if (item.className === "hotdog, hot dog, red hot"){
+    const user = useSelector((store) => store.user);
+    const dispatch = useDispatch()
+
+    const handleClick = () => {
+        dispatch({
+            type: "ADD_HOT_DOG",
+            payload: toSend
+        })
+    }
+
+
+
+    const hotdogNothotdog = (isHotdog) => {
+        if (isHotdog){
             return (
-                <>
-                <h3 className='tag' key={item.className}>Great Hotdog</h3>
-                {setProbability(item.probability)}
-                </>
+                <h3 className='tag' key='1'>Great Hotdog</h3>
             )
         } else {
             return (
-                <h3 className='tag' key={item.className}>Thats not a hotdog cheater</h3>
+                <h3 className='tag' key='2'>Thats not a hotdog cheater</h3>
             )
         }
     }
 
     const toSend = {
         user_id: user.id,
-        rating: rating,
+        rating: Number(rating),
         description: description,
         photo: image,
         probability :probability
@@ -54,7 +64,11 @@ const AddHotDog = () => {
         drawImageOnCanvas(target, canvas, ctx);
     
         const predictions = await model.classify(canvas, 1);
-        console.log(predictions)
+        if(predictions[0].className === "hotdog, hot dog, red hot"){
+            setIsHotdog(true)
+            setProbability(predictions[0].probability)
+        }
+        
         setPredictions(predictions);
       };
     //adds canvas
@@ -160,10 +174,8 @@ const AddHotDog = () => {
         {renderPreview()}
         {!!predictions.length && 
             <div className="tags-container">
-            {predictions.map(item => (
-                hotdogNothotdog(item)
-            ))}
-          </div>
+                {hotdogNothotdog(isHotdog)}
+            </div>
         }
         <FormControl >
         <Rating 
@@ -186,7 +198,7 @@ const AddHotDog = () => {
         />
         {isHotdog && 
         <div>
-            <Button sx={{ m: 1, width: '20ch' }} variant="contained" >Add HotDog!</Button>
+            <Button sx={{ m: 1, width: '20ch' }} variant="contained" onClick={handleClick}>Add HotDog!</Button>
         </div>
     
         
