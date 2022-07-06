@@ -5,6 +5,7 @@ import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button'
 
 const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -35,27 +36,24 @@ const AddCompetition = () =>{
         })
     },[])
 
+    const [players, setPlayers] = useState([])
     const dispatch = useDispatch()
     const allUsers = useSelector((store) => store.allUsersReducer)
-    const userNames = []
-    
-    allUsers.map((user) => {
-        userNames.push(user.username)
-    })
-    console.log(allUsers)
-    
-
+    const handleChange = (evt, value) => setPlayers(value)
+    const handleClick = () => console.log(players)
 
    
 
     return (
-        <Autocomplete
+        <div>
+           <Stack spacing={2}>
+             <Autocomplete
         multiple
+        value={players}
         id="tags-outlined"
         options={allUsers}
+        onChange={handleChange}
         getOptionLabel={(option) => option.username}
-        defaultValue={[allUsers[1]].username}
-        filterSelectedOptions
         renderInput={(params) => (
           <TextField
             {...params}
@@ -64,6 +62,10 @@ const AddCompetition = () =>{
           />
         )}
       />
+      <Button variant="contained" onClick={handleClick}>START COMPETITION</Button>
+      </Stack>
+        </div>
+       
     )
 }
 
