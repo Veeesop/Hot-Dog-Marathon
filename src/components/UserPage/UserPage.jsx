@@ -18,7 +18,17 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   const userCompetitions = useSelector((store) => store.userCompetitions)
   return (
+    <>
    <h1>{user.username}</h1>
+   {userCompetitions.map((comp) => {
+      return (
+        <div key={comp.name}>
+          <h2>{comp.name}</h2>
+          <p>{comp.description}</p>
+        </div>
+      )
+   })}
+   </>
   );
 }
 
