@@ -9,9 +9,11 @@ function UserPage() {
   useEffect(() => {
     dispatch({
       type:"FETCH_USER_COMPETITIONS",
-      payload: user.id
+      payload: {
+        id: user.id
+      }
     })
-  })
+  }, [])
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const userCompetitions = useSelector((store) => store.userCompetitions)

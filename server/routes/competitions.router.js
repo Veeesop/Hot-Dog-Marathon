@@ -66,12 +66,12 @@ router.get("/user", rejectUnauthenticated, (req, res) => {
   JOIN "user" ON competitions_users.user_id = "user".id
   WHERE "user".id = $1;
   `;
-  const sqlParams = [req.body.user.id];
-
+  const sqlParams = [req.user.id];
   pool
     .query(sqlQuery, sqlParams)
     .then((dbRes) => {
       res.send(dbRes.rows);
+      console.log(dbRes.rows);
     })
     .catch((err) => {
       console.log("error in GET", err);
