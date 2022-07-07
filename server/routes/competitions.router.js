@@ -1,0 +1,62 @@
+const express = require("express");
+const pool = require("../modules/pool");
+const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
+
+router.post("/", rejectUnauthenticated, (req, res) => {
+  const comp = req.body;
+  const sqlQuery = `
+        INSERT INTO competitions (name, end_date, description, admin_user_id, admin_user_username)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *;
+    `;
+
+  const sqlParams = [
+    comp.name,
+    comp.end_date,
+    comp.description,
+    comp.admin_user_id,
+    comp.admin_user_username,
+  ];
+
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((dbres) => {
+      res.send(dbres);
+    })
+    .catch((err) => {
+      console.log("Error in POST", err);
+      res.sendStatus(500);
+    });
+});
+
+router.post("/junction", rejectUnauthenticated, (req, res) => {
+  let str = [];
+  const getInsert = (players, comp_id) => {
+    players.map((player) => {
+      str.push(`(${player.id}, ${comp_id})`);
+    });
+  };
+  getInsert(req.body.players, req.body.competition_id);
+  let sqlValues = str.join();
+  console.log(sqlValues);
+
+  const sqlQuery = `
+      INSERT INTO competitions_users (user_id, competition_id)
+      VALUES ${sqlValues}
+     `;
+  const sqlParams = [sqlValues];
+  pool
+    .query(sqlQuery)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("Error in POST", err);
+      res.sendStatus(500);
+    });
+});
+
+module.exports = router;

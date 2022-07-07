@@ -10,6 +10,7 @@ const passport = require("./strategies/user.strategy");
 // Route includes
 const userRouter = require("./routes/user.router");
 const useHotDogRouter = require("./routes/hotdogs.router");
+const useCompetitionsRouter = require("./routes/competitions.router");
 
 // Body parser middleware
 app.use(bodyParser.json({ limit: "50mb" }));
@@ -25,6 +26,7 @@ app.use(passport.session());
 /* Routes */
 app.use("/api/user", userRouter);
 app.use("/hotdogs", useHotDogRouter);
+app.use("/competitions", useCompetitionsRouter);
 
 // Serve static files
 app.use(express.static("build"));
