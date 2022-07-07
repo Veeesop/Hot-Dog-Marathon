@@ -33,9 +33,19 @@ function* fetchAllUsers() {
   }
 }
 
+function* fetchUserCompetitions(action) {
+  try {
+    const response = yield axios.get("/competitions/user", action.payload);
+    yield put({ type: "SET_USERS_COMPETITIONS", payload: response.data });
+  } catch (error) {
+    console.log("Error in fetchUserCompetitions", error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("FETCH_ALL_USERS", fetchAllUsers);
+  yield takeLatest("FETCH_USER_COMPETITIONS", fetchUserCompetitions);
 }
 
 export default userSaga;

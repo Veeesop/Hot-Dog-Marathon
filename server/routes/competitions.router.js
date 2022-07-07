@@ -45,7 +45,7 @@ router.post("/junction", rejectUnauthenticated, (req, res) => {
 
   const sqlQuery = `
       INSERT INTO competitions_users (user_id, competition_id)
-      VALUES ${sqlValues}
+      VALUES ${sqlValues} 
      `;
   const sqlParams = [sqlValues];
   pool
@@ -55,6 +55,26 @@ router.post("/junction", rejectUnauthenticated, (req, res) => {
     })
     .catch((err) => {
       console.log("Error in POST", err);
+      res.sendStatus(500);
+    });
+});
+
+router.get("/user", rejectUnauthenticated, (req, res) => {
+  const sqlQuery = `
+  SELECT * FROM "competitions"
+  JOIN competitions_users ON competitions_users.competition_id = "competitions".id
+  JOIN "user" ON competitions_users.user_id = "user".id
+  WHERE "user".id = $1;
+  `;
+  const sqlParams = [req.body.user.id];
+
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((dbRes) => {
+      res.send(dbRes.rows);
+    })
+    .catch((err) => {
+      console.log("error in GET", err);
       res.sendStatus(500);
     });
 });
