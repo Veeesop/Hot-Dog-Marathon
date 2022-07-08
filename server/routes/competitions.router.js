@@ -61,7 +61,15 @@ router.post("/junction", rejectUnauthenticated, (req, res) => {
 
 router.get("/user", rejectUnauthenticated, (req, res) => {
   const sqlQuery = `
-  SELECT * FROM "competitions"
+  SELECT competitions.id, 
+	  competitions.admin_user_id, 
+	  competitions.description, 
+	  competitions.admin_user_username, 
+	  competitions.end_date, 
+	  competitions.winner,
+	  competitions.name,
+	  competitions.start_time
+	FROM "competitions"
   JOIN competitions_users ON competitions_users.competition_id = "competitions".id
   JOIN "user" ON competitions_users.user_id = "user".id
   WHERE "user".id = $1;
@@ -71,7 +79,6 @@ router.get("/user", rejectUnauthenticated, (req, res) => {
     .query(sqlQuery, sqlParams)
     .then((dbRes) => {
       res.send(dbRes.rows);
-      console.log(dbRes.rows);
     })
     .catch((err) => {
       console.log("error in GET", err);

@@ -3,6 +3,7 @@ import errors from "./errors.reducer";
 import user from "./user.reducer";
 import allUsersReducer from "./allusers.reducer";
 import userCompetitions from "./userCompetitions.reducer";
+import hotdogReducer from "./hotdog.reducer";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   user,
   allUsersReducer, // will have an id and username if someone is logged in
   userCompetitions,
+  hotdogReducer,
 });
 
 export default rootReducer;

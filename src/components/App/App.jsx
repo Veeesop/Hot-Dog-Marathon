@@ -21,6 +21,8 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AddHotDog from '../AddHotDog/AddHotDog';
 import AddCompetition from '../AddCompetition/AddCompetition';
+import HotDogComp from '../HotDogComp/HotDogComp';
+import SuspectedHotDogs from '../SuspectedHotDogs/SuspectedHotDogs';
 
 import './App.css';
 
@@ -61,33 +63,23 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/addHotDog"
-          >
+          <ProtectedRoute exact path="/addHotDog">
             <AddHotDog />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/addCompetition"
-          >
+          <ProtectedRoute exact path="/addCompetition">
             <AddCompetition />
           </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
+          <ProtectedRoute exact path="/competition/:id">
+            <HotDogComp />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/susdogs/:id">
+            <SuspectedHotDogs />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/info">
             <InfoPage />
           </ProtectedRoute>
 
-          <Route
-            exact
-            path="/login"
-          >
+          <Route exact path="/login">
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
