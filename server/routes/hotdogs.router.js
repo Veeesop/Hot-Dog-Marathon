@@ -24,7 +24,7 @@ router.post("/photo", rejectUnauthenticated, async (req, res) => {
     res.send(uploadedResponse.url);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ err: "something went wrong" });
+    res.sendStatus(500);
   }
 });
 
