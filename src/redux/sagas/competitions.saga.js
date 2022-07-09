@@ -22,9 +22,22 @@ function* addToJunction(action) {
   }
 }
 
+function* fetchCompInfo(action) {
+  try {
+    const response = yield axios.get(
+      `/competitions/compInfo/${action.payload}`
+    );
+    console.log(response.data[0]);
+    yield put({ type: "SET_ACTIVE_COMP_INFO", payload: response.data[0] });
+  } catch (err) {
+    console.log("Error in fetchCompInfo", err);
+  }
+}
+
 function* competitions() {
   yield takeLatest("ADD_NEW_COMPETITION", addCompetition);
   yield takeLatest("ADD_TO_JUNCTION", addToJunction);
+  yield takeLatest("FETCH_COMP_INFO", fetchCompInfo);
 }
 
 export default competitions;

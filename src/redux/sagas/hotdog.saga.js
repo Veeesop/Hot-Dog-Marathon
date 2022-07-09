@@ -29,11 +29,19 @@ function* addHotDogDatabase(action) {
 
 function* fetchAllCompDogs(action) {
   try {
-    const response = axios.get(`/hotdogs/comp/${action.payload}`);
-    console.log(response);
-    yield put({ type: "SET_COMP_DOGS", payload: response });
+    const response = yield axios.get(`/hotdogs/comp/${action.payload}`);
+    yield put({ type: "SET_COMP_DOGS", payload: response.data });
   } catch (err) {
     console.log("error in fetchAllCompDogs", err);
+  }
+}
+
+function* fetchSusDogs(action) {
+  try {
+    const response = yield axios.get(`/hotdogs/susDogs/${action.payload}`);
+    yield put({ type: "SET_SUS_DOGS", payload: response.data });
+  } catch (err) {
+    console.log("Error in fetchSusDogs", err);
   }
 }
 
@@ -41,6 +49,7 @@ function* hotdog() {
   yield takeLatest("ADD_HOT_DOG_PHOTO", addHotDogPhoto);
   yield takeLatest("ADD_HOT__DOG_DATABASE", addHotDogDatabase);
   yield takeLatest("FETCH_ALL_COMP_DOGS", fetchAllCompDogs);
+  yield takeLatest("FETCH_SUS_DOGS", fetchSusDogs);
 }
 
 export default hotdog;

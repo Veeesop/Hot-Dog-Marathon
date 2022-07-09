@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import {TextField, Stack, Paper, Button, Typography} from '@mui/material';
+
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -25,41 +27,48 @@ function LoginForm() {
   }; // end login
 
   return (
-    <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
-      {errors.loginMessage && (
-        <h3 className="alert" role="alert">
-          {errors.loginMessage}
-        </h3>
+    <>
+    {errors.loginMessage && (
+      <h3 className="alert" role="alert">
+      {errors.loginMessage}
+      </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
-      </div>
+    <form onSubmit={login}>
+      <Paper elevation={3} sx={{
+          display:'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          margin: 'auto',
+          mb: 40,
+          width: 300,
+          height: 300
+      }}>
+        
+        <Stack spacing={3}
+          direction="column"
+          justifyContent="center"
+          alignItems="center">
+          <Typography variant='h4'>Log In</Typography>
+          <TextField id="username" 
+                type='text' 
+                label="Username" 
+                variant="outlined"
+                value={username}
+                required 
+                onChange={(event) => setUsername(event.target.value)}/>
+          <TextField id="password" 
+                type='password' 
+                label="Password" 
+                variant="outlined"
+                value={password}
+                required 
+                onChange={(event) => setPassword(event.target.value)}/>
+          <Button variant='contained' color='primary' type='submit'>Log In</Button>
+        </Stack>
+      </Paper>
+     
     </form>
+    </>
   );
 }
 

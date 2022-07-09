@@ -24,6 +24,7 @@ import AddCompetition from '../AddCompetition/AddCompetition';
 import HotDogComp from '../HotDogComp/HotDogComp';
 import SuspectedHotDogs from '../SuspectedHotDogs/SuspectedHotDogs';
 
+
 import './App.css';
 
 function App() {
@@ -72,7 +73,7 @@ function App() {
           <ProtectedRoute exact path="/competition/:id">
             <HotDogComp />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/susdogs/:id">
+          <ProtectedRoute exact path="/susDogs/:id">
             <SuspectedHotDogs />
           </ProtectedRoute>
           <ProtectedRoute exact path="/info">

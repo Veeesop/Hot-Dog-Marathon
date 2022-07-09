@@ -86,4 +86,22 @@ router.get("/user", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get("/compInfo/:id", rejectUnauthenticated, (req, res) => {
+  const sqlQuery = `
+  SELECT * FROM competitions
+  WHERE id = $1;
+  `;
+  const sqlParams = [req.params.id];
+
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((dbRes) => {
+      res.send(dbRes.rows);
+    })
+    .catch((err) => {
+      console.log("Error in GET", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
