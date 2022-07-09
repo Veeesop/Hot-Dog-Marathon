@@ -23,7 +23,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 router.get("/all", (req, res) => {
   const sqlQuery = `
-    SELECT id, username FROM "user"
+    SELECT id, username, profile_image, description FROM "user"
     ORDER BY username ASC
   `;
   pool

@@ -3,7 +3,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from '@mui/material';
+import { Button, Avatar } from '@mui/material';
 
 function UserPage() {
   const dispatch = useDispatch()
@@ -18,10 +18,12 @@ function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const userCompetitions = useSelector((store) => store.userCompetitions)
-
   return (
     <>
+  
    <h1>{user.username}</h1>
+   <img src={user.profile_image} alt='hotdog'/>
+   <p>{user.description}</p>
    <h2>My Competitions:</h2>
    {userCompetitions.map((comp) => {
       return (

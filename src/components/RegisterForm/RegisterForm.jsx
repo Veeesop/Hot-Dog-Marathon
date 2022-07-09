@@ -66,49 +66,22 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
-    <><form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
-      {errors.registrationMessage && (
+    <form onSubmit={registerUser}>
+          {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            required
-            onChange={(event) => setUsername(event.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            required
-            onChange={(event) => setPassword(event.target.value)} />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
-      </div>
-    </form><form onSubmit={registerUser}>
         <Paper elevation={3} sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          mt: 50,
           margin: 'auto',
           mb: 40,
           width: 300,
           height: 800
         }}>
-
           <Stack spacing={3}
             direction="column"
             justifyContent="center"
@@ -150,8 +123,7 @@ function RegisterForm() {
             <Button variant='contained' color='primary' type='submit'>Register</Button>
           </Stack>
         </Paper>
-
-      </form></>
+      </form>
   );
 }
 

@@ -9,7 +9,7 @@ function* addProfilePhoto(action) {
       username: action.payload.username,
       password: action.payload.password,
       description: action.payload.description,
-      profile_image: url,
+      profile_image: url.data,
     };
     yield put({ type: "REGISTER", payload: profile });
   } catch (err) {
