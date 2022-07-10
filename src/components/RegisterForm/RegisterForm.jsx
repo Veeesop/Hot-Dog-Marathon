@@ -55,7 +55,7 @@ function RegisterForm() {
     event.preventDefault();
 
     dispatch({
-      type: "ADD_PROFILE_PHOTO",
+      type: "REGISTER",
       payload: {
         username: username,
         password: password,

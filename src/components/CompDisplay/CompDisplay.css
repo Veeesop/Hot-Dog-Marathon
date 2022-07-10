@@ -1,0 +1,12 @@
+.react-icons {
+    vertical-align: middle;
+    height: 2em;
+    width: 2em;
+  }
+.iconButton {
+        display: flex;
+        flex-direction: column
+}
+.comp-label {
+    font-size: xx-small;
+}

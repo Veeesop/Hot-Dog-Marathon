@@ -34,8 +34,7 @@ const HotDogComp = () => {
     
     return (
         <div>
-            <Box sx={{ width: 340, 
-                    height: 200,
+            <Box sx={{ width: 340,
                     boxShadow: 20,
                     margin: 3,
                     padding: 3}}>

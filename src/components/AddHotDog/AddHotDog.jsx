@@ -5,7 +5,7 @@ import Rating from '@mui/material/Rating'
 import { GiHotDog } from 'react-icons/gi'
 import Webcam from "react-webcam";
 import {Button, TextField, Paper, Stack} from '@mui/material'
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import '@tensorflow/tfjs-backend-webgl'
 import "../AddHotDog/AddHotDog.css"
 
@@ -24,6 +24,7 @@ const AddHotDog = () => {
 
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const handleSubmit = (evt) => {
       evt.preventDefault()
@@ -32,6 +33,7 @@ const AddHotDog = () => {
             type: "ADD_HOT_DOG_PHOTO",
             payload: toSend
         })
+        history.push('/user')
     }
 
     const hotdogNothotdog = (isHotdog) => {

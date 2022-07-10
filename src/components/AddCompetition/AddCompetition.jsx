@@ -8,6 +8,7 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import 'date-fns';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import moment from 'moment'
+import { useHistory, Link } from "react-router-dom"
 
 const AddCompetition = () =>{
 
@@ -21,7 +22,9 @@ const AddCompetition = () =>{
     const [competitionName, setCompetitionName] = useState('')
     const [description, setDescription] = useState('')
     const [value, setValue] = useState(new Date());
+    const [compAdded, setCompAdded] = useState(false)
     const dispatch = useDispatch()
+    const history = useHistory()
     const allUsers = useSelector((store) => store.allUsersReducer)
     const user = useSelector((store) => store.user)
     const handleChange = (evt, value) => setPlayers(value)
@@ -32,6 +35,7 @@ const AddCompetition = () =>{
             type: "ADD_NEW_COMPETITION",
             payload: toSend
         })
+        setCompAdded(true)
     }
     const toSend = {
         end_date: moment(value).format('YYYY-MM-DD'),
@@ -92,7 +96,11 @@ const AddCompetition = () =>{
                     }}
                     renderInput={(params) => <TextField {...params} />}
                   />
-      <Button variant="contained" type='submit'>START COMPETITION</Button>
+      {!compAdded ? 
+      <Button variant="contained" type='submit'>START COMPETITION</Button> :
+      <Button variant="contained" color='success' component={Link} to='/user'>Back To Profile</Button>
+    }
+      
       </Stack>
       </Box>
       </Paper>

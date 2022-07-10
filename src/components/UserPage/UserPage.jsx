@@ -40,16 +40,6 @@ function UserPage() {
     >
       <CompDisplay comps={userCompetitions} />
   </Box>
-   {userCompetitions.map((comp) => {
-      return (
-        <div key={comp.name} >
-          <h2>{comp.name}</h2>
-          <p>{comp.description}</p>
-          <Link to={`competition/${comp.id}`}><Button variant='contained'>Go to Competition</Button></Link>
-          {user.id === comp.admin_user_id && <Link to={`susdogs/${comp.id}`}><Button variant='contained'>Checkout Suspect Dogs</Button></Link>}
-        </div>
-      )
-   })}
    </>
   );
 }

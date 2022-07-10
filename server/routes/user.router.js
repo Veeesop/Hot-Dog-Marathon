@@ -36,34 +36,24 @@ router.get("/all", (req, res) => {
     });
 });
 
-router.post("/profilePhoto", async (req, res) => {
-  try {
-    const profile_image = req.body.profile_image;
-    // console.log(profile_image);
-    const uploadedResponse = await cloudinary.uploader.upload(profile_image, {
-      upload_preset: "profiles",
-    });
-    console.log(uploadedResponse.url);
-    res.send(uploadedResponse.url);
-  } catch (err) {
-    console.log("Error in POST", err);
-    res.sendStatus(500);
-  }
-});
-
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post("/register", (req, res, next) => {
+router.post("/register", async (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
-  const profile_image = req.body.profile_image;
+  const profile_image = await cloudinary.uploader.upload(
+    req.body.profile_image,
+    {
+      upload_preset: "profiles",
+    }
+  );
   const description = req.body.description;
 
   const queryText = `INSERT INTO "user" (username, password, profile_image, description)
     VALUES ($1, $2, $3, $4) RETURNING id`;
   pool
-    .query(queryText, [username, password, profile_image, description])
+    .query(queryText, [username, password, profile_image.url, description])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log("User registration failed: ", err);
