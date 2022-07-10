@@ -11,7 +11,7 @@ const HotDogCard = ({hotdog}) => {
                     boxShadow: 20,
                     margin: 3}}
             />
-            <Typography variant="body1"/>
+            <Typography variant="body1"></Typography>
         </div>
     )
 }

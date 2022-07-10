@@ -1,5 +1,4 @@
 .hotdog-verify-image {
-    font-family: sans-serif;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -9,12 +8,16 @@
   }
   
   .classified-image {
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     max-width: calc(100vw - 100px);
     max-height: calc(100vw - 100px);
-    border-radius: 10px;
+    border-radius: 50%;
     margin: 20px;
-    box-shadow: 4px 4px 6px 1px lightgray;
+    box-shadow: 4px 4px 8px 1px lightgray;
     
+  }
+
+  .tag{
+    margin-top: 34px;
   }

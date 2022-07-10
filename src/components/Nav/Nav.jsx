@@ -1,17 +1,15 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { Paper, BottomNavigationAction, BottomNavigation } from '@mui/material'
-import RestoreIcon from '@mui/icons-material/Restore' 
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import ArchiveIcon from '@mui/icons-material/Archive'
-import { GiHotDog } from 'react-icons/gi'
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useDispatch } from 'react-redux';
 
 function Nav() {
+  const dispatch = useDispatch()
   const user = useSelector((store) => store.user);
   const [value, setValue] = useState(0);
   return (
@@ -27,7 +25,7 @@ function Nav() {
               onChange={(event, newValue) => {setValue(newValue);}}>
           <BottomNavigationAction component={Link} to="/user" label="Profile" icon={<PersonIcon />} />
           <BottomNavigationAction component={Link} to="/addHotdog" label="Add Dog" icon={<AddIcon />} />
-          <BottomNavigationAction component={LogOutButton} label="Log Out" icon={<AddIcon />} />
+          <BottomNavigationAction onClick={() => dispatch({ type: 'LOGOUT' })}label="Log Out" icon={<LogoutIcon />} />
           </BottomNavigation>
           </Paper>
           </>

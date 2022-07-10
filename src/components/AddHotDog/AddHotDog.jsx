@@ -4,11 +4,8 @@ import * as mobileNet from "@tensorflow-models/mobilenet";
 import Rating from '@mui/material/Rating'
 import { GiHotDog } from 'react-icons/gi'
 import Webcam from "react-webcam";
-import TagsContainer from "../TagsContainer/TagsContainer";
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Paper from '@mui/material/Paper'
-import FormControl from '@mui/material/FormControl'
+import {Button, TextField, Paper, Stack} from '@mui/material'
+import { Link } from "react-router-dom";
 import '@tensorflow/tfjs-backend-webgl'
 import "../AddHotDog/AddHotDog.css"
 
@@ -28,7 +25,8 @@ const AddHotDog = () => {
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch()
 
-    const handleClick = () => {
+    const handleSubmit = (evt) => {
+      evt.preventDefault()
         // uploadImage(imageSrc)
         dispatch({
             type: "ADD_HOT_DOG_PHOTO",
@@ -135,7 +133,7 @@ const AddHotDog = () => {
     const renderPreview = () => (
         image &&
         <div className="classified-image">
-        <canvas ref={canvasRef}>
+        <canvas ref={canvasRef} >
           <img alt="preview"  src={image} onLoad={onImageChange}/>
         </canvas>
         <Button sx={{ m: 1, width: '32ch' }} onClick={clear} variant="contained">Retake</Button>
@@ -170,7 +168,7 @@ const AddHotDog = () => {
     
     return (
         <div className="hotdog-verify-image">
-        <h1>HotDog Check</h1>
+        <img src="https://fontmeme.com/permalink/220710/393c4b908525791220526a7b54b77d0b.png" alt="hot-dog-font" border="0"/>
         {renderInput()}
         {renderPreview()}
         {!!predictions.length && 
@@ -178,7 +176,11 @@ const AddHotDog = () => {
                 {hotdogNothotdog(isHotdog)}
             </div>
         }
-        <FormControl >
+        <form onSubmit={handleSubmit}>
+        <Stack spacing={3}
+            direction="column"
+            justifyContent="center"
+            alignItems="center">
         <Rating 
             size='large'
             icon={<GiHotDog />}
@@ -186,6 +188,7 @@ const AddHotDog = () => {
             sx={{
                 fontSize: "4rem"
             }}
+            required
             onChange={(evt)=>{setRating(evt.target.value)}}
         />
         <TextField
@@ -195,16 +198,20 @@ const AddHotDog = () => {
           sx={{ m: 1, width: '35ch' }}
           rows={4}
           multiline
+          required
           onChange={(evt)=>{setDescription(evt.target.value)}}
         />
-        {isHotdog && 
+        {isHotdog ?
         <div>
-            <Button sx={{ m: 1, width: '20ch' }} variant="contained" onClick={handleClick}>Add HotDog!</Button>
+            <Button sx={{ m: 1, width: '20ch' }} variant="contained" type="submit">Add HotDog!</Button>
         </div>
-    
-        
+        :
+        <div>
+            <Button sx={{ m: 1, width: '20ch' }} component={Link} to='/user' variant="contained" type="submit">Cancel</Button>
+        </div>
         }
-        </FormControl>
+        </Stack>
+        </form>
         </div>
     )
 }

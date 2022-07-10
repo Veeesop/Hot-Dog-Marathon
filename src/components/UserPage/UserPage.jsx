@@ -1,9 +1,10 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Avatar } from '@mui/material';
+import { Button, Box } from '@mui/material';
+import ProfileCard from '../ProfileCard/ProfileCard';
+import CompDisplay from '../CompDisplay/CompDisplay'
 
 function UserPage() {
   const dispatch = useDispatch()
@@ -20,11 +21,25 @@ function UserPage() {
   const userCompetitions = useSelector((store) => store.userCompetitions)
   return (
     <>
-  
-   <h1>{user.username}</h1>
-   <img src={user.profile_image} alt='hotdog'/>
-   <p>{user.description}</p>
+    <img src="https://fontmeme.com/permalink/220710/82b88f941d687d1cfc46f34fc954a8e0.png" alt="hot-dog-font" border="0"/>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection='column'
+    >
+      <ProfileCard user={user}/>
+      <Link to='/addCompetition'><Button sx={{margin: 3}} variant='contained'>Start A Competition!</Button></Link>
+    </Box>
    <h2>My Competitions:</h2>
+   <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection='column'
+    >
+      <CompDisplay comps={userCompetitions} />
+  </Box>
    {userCompetitions.map((comp) => {
       return (
         <div key={comp.name} >
