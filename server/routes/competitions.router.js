@@ -88,8 +88,17 @@ router.get("/user", rejectUnauthenticated, (req, res) => {
 
 router.get("/compInfo/:id", rejectUnauthenticated, (req, res) => {
   const sqlQuery = `
-  SELECT * FROM competitions
-  WHERE id = $1;
+  SELECT  competitions.id, json_agg("user".username) as users, competitions.admin_user_id, 
+	competitions.description, 
+	competitions.admin_user_username, 
+	competitions.end_date, 
+	competitions.winner,
+	competitions.name,
+	competitions.start_time FROM competitions
+  JOIN competitions_users ON competitions.id = competitions_users.competition_id
+  JOIN "user" ON "user".id = competitions_users.user_id
+  WHERE competitions.id = $1
+  GROUP BY competitions.id;
   `;
   const sqlParams = [req.params.id];
 

@@ -45,11 +45,32 @@ function* fetchSusDogs(action) {
   }
 }
 
+function* deleteDog(action) {
+  try {
+    console.log(action.payload.id);
+    yield axios.delete(`/hotdogs/delete/${action.payload.dog}`);
+    yield put({ type: "FETCH_SUS_DOGS", payload: action.payload.id });
+  } catch (err) {
+    console.log("Error in deleteDog", err);
+  }
+}
+
+function* approveDog(action) {
+  try {
+    yield axios.put(`/hotdogs/approve/${action.payload.dog}`);
+    yield put({ type: "FETCH_SUS_DOGS", payload: action.payload.id });
+  } catch (err) {
+    console.log("Error in approveDog", err);
+  }
+}
+
 function* hotdog() {
   yield takeLatest("ADD_HOT_DOG_PHOTO", addHotDogPhoto);
   yield takeLatest("ADD_HOT__DOG_DATABASE", addHotDogDatabase);
   yield takeLatest("FETCH_ALL_COMP_DOGS", fetchAllCompDogs);
   yield takeLatest("FETCH_SUS_DOGS", fetchSusDogs);
+  yield takeLatest("DELETE_DOG", deleteDog);
+  yield takeLatest("APPROVE_DOG", approveDog);
 }
 
 export default hotdog;

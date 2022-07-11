@@ -56,7 +56,7 @@ router.post("/database", rejectUnauthenticated, (req, res) => {
 
 router.get("/comp/:id", rejectUnauthenticated, (req, res) => {
   const sqlQuery = `
-  SELECT hotdogs.rating as rating, hotdogs.id as id, hotdogs.photo as photo, hotdogs.user_id as user_id, competitions.name as comp_name, hotdogs.description as description, "user".username, hotdogs.time_added FROM "hotdogs"
+  SELECT hotdogs.rating as rating, hotdogs.id as id, hotdogs.photo as photo, hotdogs.user_id as user_id, competitions.name as comp_name, hotdogs.description as description, "user".username, hotdogs.time_added, "user".profile_image FROM "hotdogs"
   JOIN competitions_users ON competitions_users.user_id = "hotdogs".user_id
   JOIN competitions ON competitions_users.competition_id = competitions.id
   JOIN "user" ON competitions_users.user_id = "user".id
@@ -77,9 +77,10 @@ router.get("/comp/:id", rejectUnauthenticated, (req, res) => {
 
 router.get("/susDogs/:id", rejectUnauthenticated, (req, res) => {
   const sqlQuery = `
-  SELECT hotdogs.id as id, hotdogs.rating as rating, hotdogs.description as description, hotdogs.time_added as time_added, hotdogs.photo as photo, hotdogs.probability as probability, hotdogs.user_id as user_id, competitions.admin_user_id FROM "hotdogs"
+  SELECT hotdogs.id as id, hotdogs.rating as rating, hotdogs.description as description, hotdogs.time_added as time_added, hotdogs.photo as photo, hotdogs.probability as probability, hotdogs.user_id as user_id, competitions.admin_user_id, "user".profile_image FROM "hotdogs"
   JOIN competitions_users ON competitions_users.user_id = "hotdogs".user_id
   JOIN competitions ON competitions_users.competition_id = competitions.id
+  JOIN "user" ON competitions_users.user_id = "user".id
   WHERE competitions.id = $1 AND ("hotdogs".probability < .5);  
   `;
   const sqlParams = [req.params.id];
@@ -90,6 +91,45 @@ router.get("/susDogs/:id", rejectUnauthenticated, (req, res) => {
     })
     .catch((err) => {
       console.log("Error in GET", err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete("/delete/:id", rejectUnauthenticated, (req, res) => {
+  const sqlQuery = `
+  DELETE FROM "hotdogs"
+  WHERE id = $1
+  RETURNING *;
+  `;
+  const sqlParams = [req.params.id];
+
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((dbRes) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("Error in delete", err);
+      res.sendStatus(500);
+    });
+});
+
+router.put("/approve/:id", rejectUnauthenticated, (req, res) => {
+  const sqlQuery = `
+    UPDATE "hotdogs"
+    SET probability = .99
+    WHERE id = $1
+    RETURNING *
+  `;
+  const sqlParams = [req.params.id];
+
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((dbRes) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("Error in delete", err);
       res.sendStatus(500);
     });
 });
