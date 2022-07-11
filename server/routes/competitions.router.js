@@ -33,23 +33,40 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/junction", rejectUnauthenticated, (req, res) => {
-  let str = [];
-  const getInsert = (players, comp_id) => {
-    players.map((player) => {
-      str.push(`(${player.id}, ${comp_id})`);
-    });
+  junctionInsert(req.body.players, req.body.competition_id);
+  console.log(newStr);
+
+  const sqlQueryInsert = (players) => {
+    let queryInsert = [];
+    for (let i = 0; i < players.length; i++) {
+      queryInsert.push(`($${i + 2}, $1)`);
+    }
+    return queryInsert.join();
   };
+  let queryValues = sqlQueryInsert(req.body.players);
+
+  const sqlParamsInsert = (players, comp_id) => {
+    let paramsInsert = [comp_id];
+    for (let i = 0; i < players.length; i++) {
+      paramsInsert.push(players[i].id);
+    }
+    return paramsInsert;
+  };
+
+  console.log(sqlQueryInsert(req.body.players));
+  console.log(sqlParamsInsert(req.body.players, req.body.competition_id));
+
   getInsert(req.body.players, req.body.competition_id);
   let sqlValues = str.join();
   console.log(sqlValues);
 
   const sqlQuery = `
       INSERT INTO competitions_users (user_id, competition_id)
-      VALUES ${sqlValues} 
+      VALUES ${queryValues} 
      `;
-  const sqlParams = [sqlValues];
+  const sqlParams = sqlParamsInsert(req.body.players, req.body.competition_id);
   pool
-    .query(sqlQuery)
+    .query(sqlQuery, sqlParams)
     .then(() => {
       res.sendStatus(200);
     })

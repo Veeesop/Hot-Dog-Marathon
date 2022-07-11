@@ -25,7 +25,7 @@ const HotDogComp = () => {
     const dogs = useSelector(store => store.hotdogReducer)
     const user = useSelector(store => store.user)
     const comp = useSelector(store => store.activeComp)
-    const date = `${moment(comp.end_date).format('MMMM DD, YYYY')} 00:00:00 GMT+03:00`
+    const date = `${moment(comp.end_date).format('MMMM DD, YYYY')}`
 
     console.log(date)
     return (
@@ -38,8 +38,11 @@ const HotDogComp = () => {
         <h2>{comp.name}</h2>
         <p>{comp.description}</p>
         <h3>{moment(comp.end_date).format('MMMM DD, YYYY')}</h3>
-        {/* <DateCountdown dateTo='July 28, 2022 00:00:00 GMT+03:00'
-callback={()=>alert('Hello')}  /> */}
+        {/* <DateCountdown
+      dateTo="2024-12-22"
+      locales={["", "", "", "", "", ""]}
+      locales_plural={["", "", "", "", "", ""]}
+        /> */}
         {user.id === comp.admin_user_id && <Button component={Link} to={`/susDogs/${comp.id}`}>Check Suspicious Dogs</Button>}
         </Box>
         <Box sx={{ width: 310,
