@@ -81,7 +81,7 @@ router.get("/susDogs/:id", rejectUnauthenticated, (req, res) => {
   JOIN competitions_users ON competitions_users.user_id = "hotdogs".user_id
   JOIN competitions ON competitions_users.competition_id = competitions.id
   JOIN "user" ON competitions_users.user_id = "user".id
-  WHERE competitions.id = $1 AND ("hotdogs".probability < .5);  
+  WHERE competitions.id = $1 AND ("hotdogs".probability < .5) AND (hotdogs.time_added > competitions.start_time) AND (hotdogs.time_added < competitions.end_date) ;  
   `;
   const sqlParams = [req.params.id];
   pool

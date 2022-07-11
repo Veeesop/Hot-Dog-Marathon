@@ -38,7 +38,8 @@ const HotDogComp = () => {
         <h2>{comp.name}</h2>
         <p>{comp.description}</p>
         <h3>{moment(comp.end_date).format('MMMM DD, YYYY')}</h3>
-        <DateCountdown dateTo={date} callback={()=>alert('Hello')}  />
+        {/* <DateCountdown dateTo='July 28, 2022 00:00:00 GMT+03:00'
+callback={()=>alert('Hello')}  /> */}
         {user.id === comp.admin_user_id && <Button component={Link} to={`/susDogs/${comp.id}`}>Check Suspicious Dogs</Button>}
         </Box>
         <Box sx={{ width: 310,
