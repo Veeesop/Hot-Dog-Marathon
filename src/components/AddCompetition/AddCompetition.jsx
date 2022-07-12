@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useDispatch, useSelector} from "react-redux"
 import * as React from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
+import Chip from '@mui/material/Chip';
 import { Paper, TextField, Stack, Button, Box } from '@mui/material'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -9,6 +10,7 @@ import 'date-fns';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import moment from 'moment'
 import { useHistory, Link } from "react-router-dom"
+
 
 const AddCompetition = () =>{
 
@@ -19,11 +21,13 @@ const AddCompetition = () =>{
     },[])
 
 
+   
+
 
     const [players, setPlayers] = useState([])
     const [competitionName, setCompetitionName] = useState('')
     const [description, setDescription] = useState('')
-    const [value, setValue] = useState(new Date());
+    const [valueDate, setValueDate] = useState(new Date());
     const [compAdded, setCompAdded] = useState(false)
     const dispatch = useDispatch()
     const history = useHistory()
@@ -48,7 +52,10 @@ const AddCompetition = () =>{
         admin_user_username: user.username
     }
     
-    
+    const fixedOptions = allUsers.filter(player => player.id === user.id)
+    const [value, setValue] = React.useState([...fixedOptions]);
+
+    console.log("fixedOptions", fixedOptions)
     
     return (
         <div>
@@ -68,7 +75,7 @@ const AddCompetition = () =>{
           }}>
            <Stack spacing={2}>
             <TextField id='competition-name' placeholder="Competition Name" required onChange={evt => setCompetitionName(evt.target.value)}/>
-             <Autocomplete
+             {/* <Autocomplete
                   id='players'
                   multiple
                   required
@@ -83,7 +90,7 @@ const AddCompetition = () =>{
                       placeholder="Add Players"
                     />
                   )}
-                />
+                /> */}
                     <TextField
                       id='description'
                       multiline
@@ -95,22 +102,48 @@ const AddCompetition = () =>{
                 <MobileDatePicker
                     label="Pick An End Date"
                     required
-                    value={value}
+                    value={valueDate}
                     onChange={(newValue) => {
-                      setValue(newValue);
+                      setValueDate(newValue);
                     }}
                     renderInput={(params) => <TextField {...params} />}
                   />
 
+<Autocomplete
+      multiple
+      id="fixed-tags-demo"
+      value={players}
+      onChange={(event, newValue) => {
+        setPlayers([
+          ...fixedOptions,
+          ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
+        ]);
+      }}
+      options={allUsers}
+      getOptionLabel={(option) => option.username}
+      renderTags={(tagValue, getTagProps) =>
+        tagValue.map((option, index) => (
+          <Chip
+            label={option.username}
+            {...getTagProps({ index })}
+            disabled={fixedOptions.indexOf(option) !== -1}
+          />
+        ))
+      }
+      style={{ width: 330 }}
+      renderInput={(params) => (
+        <TextField {...params} label="Fixed tag" placeholder="Players" />
+      )}
+    />
 
                     
-      
+
                   
               
                           
       {!compAdded ? 
       <Button variant="contained" type='submit'>START COMPETITION</Button> :
-      <Button variant="contained" color='success' component={Link} to='/user'>Back To</Button>
+      <Button variant="contained" color='success' component={Link} to='/user'>Back To Profile</Button>
     }
       
       </Stack>

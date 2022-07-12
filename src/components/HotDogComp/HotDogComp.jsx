@@ -51,7 +51,7 @@ const HotDogComp = () => {
         <h3>{moment(comp.end_date).format('MMMM DD,YYYY')}</h3>
         {dogCount.map((player)=>{
             return(
-            <div>
+            <div key={player.id}>
                 <h6>{player.username}</h6>
                 <label className="count-label">{player.count}</label>
             </div>

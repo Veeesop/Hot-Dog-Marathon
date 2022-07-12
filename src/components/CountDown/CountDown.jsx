@@ -22,8 +22,8 @@ const targetTime = moment(date);
     <>
       <p>Competiton Ends In:</p>
       <p className="counter">
-        <span>{timeBetween.years()}years </span>
-        <span>{timeBetween.months()}months </span>
+        {timeBetween.years() > 0 && <span>{timeBetween.years()}years </span>}
+        {timeBetween.months() > 0 && <span>{timeBetween.months()}months </span>}
         <span>{timeBetween.days()}days </span>
         <span>{timeBetween.hours()}hours </span>
         <span>{timeBetween.minutes()}min </span>
