@@ -18,6 +18,8 @@ const AddCompetition = () =>{
         })
     },[])
 
+
+
     const [players, setPlayers] = useState([])
     const [competitionName, setCompetitionName] = useState('')
     const [description, setDescription] = useState('')
@@ -45,6 +47,9 @@ const AddCompetition = () =>{
         admin_user_id: user.id,
         admin_user_username: user.username
     }
+    
+    
+    
     return (
         <div>
           <img src="https://fontmeme.com/permalink/220710/82b88f941d687d1cfc46f34fc954a8e0.png" alt="hot-dog-font" border="0"/>
@@ -96,9 +101,16 @@ const AddCompetition = () =>{
                     }}
                     renderInput={(params) => <TextField {...params} />}
                   />
+
+
+                    
+      
+                  
+              
+                          
       {!compAdded ? 
       <Button variant="contained" type='submit'>START COMPETITION</Button> :
-      <Button variant="contained" color='success' component={Link} to='/user'>Back To Profile</Button>
+      <Button variant="contained" color='success' component={Link} to='/user'>Back To</Button>
     }
       
       </Stack>

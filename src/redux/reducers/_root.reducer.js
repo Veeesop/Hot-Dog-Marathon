@@ -5,6 +5,7 @@ import allUsersReducer from "./allusers.reducer";
 import userCompetitions from "./userCompetitions.reducer";
 import hotdogReducer from "./hotdog.reducer";
 import activeComp from "./activeComp.reducer";
+import dogCount from "./dogCount.reducer";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   userCompetitions,
   hotdogReducer,
   activeComp,
+  dogCount,
 });
 
 export default rootReducer;

@@ -17,6 +17,7 @@ const CompDisplay = ({comps}) => {
             margin: 3,
             padding:1.5,
             width: 330,
+            backgroundColor: 'whitesmoke'
     }}>
         {comps.map((comp) => {
             return (

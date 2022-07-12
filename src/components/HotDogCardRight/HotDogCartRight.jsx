@@ -6,8 +6,8 @@ import Stack from "@mui/material/Stack";
 const HotDogCardRight = ({ hotdog }) => {
 
     const SmallAvatar = styled(Avatar)(({ theme }) => ({
-        width: 56,
-        height: 56,
+        width: 100,
+        height: 100,
         border: `2px solid ${theme.palette.background.paper}`,
       }));
     
@@ -19,7 +19,7 @@ const HotDogCardRight = ({ hotdog }) => {
                 badgeContent={
                     <SmallAvatar alt="Profile Photo" src={hotdog.profile_image} />
             }>
-                <Avatar alt="Hot Dog" src={hotdog.photo} sx={{width: 180, height: 180}}/>
+                <Avatar alt="Hot Dog" src={hotdog.photo} sx={{width: 300, height: 300}}/>
             </Badge>
         </div>
         

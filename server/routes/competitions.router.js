@@ -33,9 +33,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/junction", rejectUnauthenticated, (req, res) => {
-  junctionInsert(req.body.players, req.body.competition_id);
-  console.log(newStr);
-
   const sqlQueryInsert = (players) => {
     let queryInsert = [];
     for (let i = 0; i < players.length; i++) {
@@ -52,13 +49,6 @@ router.post("/junction", rejectUnauthenticated, (req, res) => {
     }
     return paramsInsert;
   };
-
-  console.log(sqlQueryInsert(req.body.players));
-  console.log(sqlParamsInsert(req.body.players, req.body.competition_id));
-
-  getInsert(req.body.players, req.body.competition_id);
-  let sqlValues = str.join();
-  console.log(sqlValues);
 
   const sqlQuery = `
       INSERT INTO competitions_users (user_id, competition_id)
@@ -126,6 +116,29 @@ router.get("/compInfo/:id", rejectUnauthenticated, (req, res) => {
     })
     .catch((err) => {
       console.log("Error in GET", err);
+      res.sendStatus(500);
+    });
+});
+
+router.get("/dogCount/:id", rejectUnauthenticated, (req, res) => {
+  const sqlQuery = `
+  SELECT count(hotdogs.id), "user".username, "user".id FROM "hotdogs"
+  JOIN competitions_users ON competitions_users.user_id = "hotdogs".user_id
+  JOIN competitions ON competitions_users.competition_id = competitions.id
+  JOIN "user" ON competitions_users.user_id = "user".id
+  WHERE competitions.id = $1 AND (hotdogs.time_added > competitions.start_time) AND (hotdogs.time_added < competitions.end_date)
+  GROUP BY "user".username, "user".id;
+  `;
+
+  const sqlParams = [req.params.id];
+
+  pool
+    .query(sqlQuery, sqlParams)
+    .then((dbRes) => {
+      res.send(dbRes.rows);
+    })
+    .catch((err) => {
+      console.log("Error in Get", err);
       res.sendStatus(500);
     });
 });

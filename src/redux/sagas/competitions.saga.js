@@ -34,10 +34,22 @@ function* fetchCompInfo(action) {
   }
 }
 
+function* fetchDogCount(action) {
+  try {
+    const response = yield axios.get(
+      `/competitions/dogCount/${action.payload}`
+    );
+    yield put({ type: "SET_DOG_COUNT", payload: response.data });
+  } catch (err) {
+    console.log("Error in fetchDogCount", err);
+  }
+}
+
 function* competitions() {
   yield takeLatest("ADD_NEW_COMPETITION", addCompetition);
   yield takeLatest("ADD_TO_JUNCTION", addToJunction);
   yield takeLatest("FETCH_COMP_INFO", fetchCompInfo);
+  yield takeLatest("FETCH_DOG_COUNT", fetchDogCount);
 }
 
 export default competitions;

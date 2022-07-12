@@ -10,3 +10,7 @@
     align-items: flex-end;
     margin-left: 40px;
 }
+
+.count-label {
+    font-size: xx-small;
+}
