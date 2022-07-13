@@ -10,7 +10,7 @@ import 'date-fns';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import moment from 'moment'
 import { useHistory, Link } from "react-router-dom"
-
+import '../AddCompetition/AddCompetition.css'
 
 const AddCompetition = () =>{
 
@@ -19,10 +19,6 @@ const AddCompetition = () =>{
             type: "FETCH_ALL_USERS"
         })
     },[])
-
-
-   
-
 
     const [players, setPlayers] = useState([])
     const [competitionName, setCompetitionName] = useState('')
@@ -44,7 +40,7 @@ const AddCompetition = () =>{
         setCompAdded(true)
     }
     const toSend = {
-        end_date: moment(value).format('YYYY-MM-DD'),
+        end_date: moment(valueDate).format('YYYY-MM-DD'),
         name: competitionName,
         description: description,
         players: players,
@@ -58,7 +54,7 @@ const AddCompetition = () =>{
     console.log("fixedOptions", fixedOptions)
     
     return (
-        <div>
+        <div className="add-hot-dog-container">
           <img src="https://fontmeme.com/permalink/220710/82b88f941d687d1cfc46f34fc954a8e0.png" alt="hot-dog-font" border="0"/>
           <form onSubmit={handleSubmit}>
              <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -75,22 +71,32 @@ const AddCompetition = () =>{
           }}>
            <Stack spacing={2}>
             <TextField id='competition-name' placeholder="Competition Name" required onChange={evt => setCompetitionName(evt.target.value)}/>
-             {/* <Autocomplete
-                  id='players'
+            <Autocomplete
                   multiple
-                  required
+                  id="competition-users-selector"
                   value={players}
+                  onChange={(event, newValue) => {
+                    setPlayers([
+                      ...fixedOptions,
+                      ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
+                    ]);
+                  }}
                   options={allUsers}
-                  onChange={handleChange}
                   getOptionLabel={(option) => option.username}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Competitors"
-                      placeholder="Add Players"
-                    />
-                  )}
-                /> */}
+                  renderTags={(tagValue, getTagProps) =>
+                    tagValue.map((option, index) => (
+                      <Chip
+                        label={option.username}
+                        {...getTagProps({ index })}
+                        disabled={fixedOptions.indexOf(option) !== -1}
+                     />
+                    ))
+                  }
+                  style={{ width: 330 }}
+                    renderInput={(params) => (
+                    <TextField {...params} label="Fixed tag" placeholder="Players" />
+                )}
+              />            
                     <TextField
                       id='description'
                       multiline
@@ -107,45 +113,11 @@ const AddCompetition = () =>{
                       setValueDate(newValue);
                     }}
                     renderInput={(params) => <TextField {...params} />}
-                  />
-
-<Autocomplete
-      multiple
-      id="fixed-tags-demo"
-      value={players}
-      onChange={(event, newValue) => {
-        setPlayers([
-          ...fixedOptions,
-          ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
-        ]);
-      }}
-      options={allUsers}
-      getOptionLabel={(option) => option.username}
-      renderTags={(tagValue, getTagProps) =>
-        tagValue.map((option, index) => (
-          <Chip
-            label={option.username}
-            {...getTagProps({ index })}
-            disabled={fixedOptions.indexOf(option) !== -1}
-          />
-        ))
-      }
-      style={{ width: 330 }}
-      renderInput={(params) => (
-        <TextField {...params} label="Fixed tag" placeholder="Players" />
-      )}
-    />
-
-                    
-
-                  
-              
-                          
+                  />      
       {!compAdded ? 
       <Button variant="contained" type='submit'>START COMPETITION</Button> :
       <Button variant="contained" color='success' component={Link} to='/user'>Back To Profile</Button>
     }
-      
       </Stack>
       </Box>
       </Paper>

@@ -78,7 +78,6 @@ function App() {
           <ProtectedRoute exact path="/info">
             <InfoPage />
           </ProtectedRoute>
-
           <Route exact path="/login">
             {user.id ?
               // If the user is already logged in, 
@@ -89,7 +88,6 @@ function App() {
               <LoginPage />
             }
           </Route>
-
           <Route
             exact
             path="/registration"

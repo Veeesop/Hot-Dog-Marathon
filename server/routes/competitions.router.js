@@ -122,12 +122,13 @@ router.get("/compInfo/:id", rejectUnauthenticated, (req, res) => {
 
 router.get("/dogCount/:id", rejectUnauthenticated, (req, res) => {
   const sqlQuery = `
-  SELECT count(hotdogs.id), "user".username, "user".id FROM "hotdogs"
+  SELECT count(hotdogs.id) dog_count, "user".username, "user".id, "user".profile_image FROM "hotdogs"
   JOIN competitions_users ON competitions_users.user_id = "hotdogs".user_id
   JOIN competitions ON competitions_users.competition_id = competitions.id
   JOIN "user" ON competitions_users.user_id = "user".id
   WHERE competitions.id = $1 AND (hotdogs.time_added > competitions.start_time) AND (hotdogs.time_added < competitions.end_date)
-  GROUP BY "user".username, "user".id;
+  GROUP BY "user".username, "user".id, "user".profile_image
+  ORDER BY dog_count DESC;
   `;
 
   const sqlParams = [req.params.id];

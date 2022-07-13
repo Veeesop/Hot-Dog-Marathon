@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Button, Box } from '@mui/material';
 import ProfileCard from '../ProfileCard/ProfileCard';
 import CompDisplay from '../CompDisplay/CompDisplay'
+import "./UserPage.css"
 
 function UserPage() {
   const dispatch = useDispatch()
@@ -20,7 +21,7 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   const userCompetitions = useSelector((store) => store.userCompetitions)
   return (
-    <>
+    <div className='user-container'>
     <img src="https://fontmeme.com/permalink/220710/82b88f941d687d1cfc46f34fc954a8e0.png" alt="hot-dog-font" border="0"/>
     <Box
       display="flex"
@@ -40,7 +41,7 @@ function UserPage() {
     >
       <CompDisplay comps={userCompetitions} />
   </Box>
-   </>
+   </div>
   );
 }
 

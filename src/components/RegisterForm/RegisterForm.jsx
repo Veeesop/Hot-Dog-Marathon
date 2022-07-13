@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {TextField, Stack, Paper, Button, Typography, Avatar } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import Loading from "../Loading/Loading"
 
 const Input = styled('input')({
   display: 'none',
@@ -12,7 +13,6 @@ const quotes = [
   "Noblest of all dogs is the hot-dog; it feeds the hand that bites it. - Laurence J. Peter",
   "I need a little sugar in my bowl and a little hot dog in my roll. - Bessie Smith",
   "They say hot dogs can kill you. How do you know it's not the bun? - Jay Leno",
-  "I say everything's about company. A gourmet meal with an asshole is a horrible meal. A hot dog with an interesting person is an amazing meal. - Chris Rock",
   "A hot dog at the game beats roast beef at the Ritz. - Humphrey Bogart",
   "Oh, I don't need sleep. I just went to my hotel room and had a cold hot dog and a vodka on the rocks. - Betty White",
   "Nobody, I mean nobody, puts ketchup on a hot dog. - Clint Eastwood",
@@ -34,6 +34,7 @@ function RegisterForm() {
   const [description, setDescription] = useState(quotes[random(quotes)])
   const [profileImage, setProfileImage] = useState('')
   const [fileInputState, setFileInputState] = useState('')
+  const [loading, setLoading] = useState(false)
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -53,7 +54,7 @@ function RegisterForm() {
 
   const registerUser = (event) => {
     event.preventDefault();
-
+    setLoading(true)
     dispatch({
       type: "REGISTER",
       payload: {
@@ -66,6 +67,8 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
+    <>
+    {loading ? <Loading /> :
     <form onSubmit={registerUser}>
           {errors.registrationMessage && (
         <h3 className="alert" role="alert">
@@ -124,6 +127,8 @@ function RegisterForm() {
           </Stack>
         </Paper>
       </form>
+    }
+      </>
   );
 }
 

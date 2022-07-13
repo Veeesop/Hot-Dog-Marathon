@@ -1,4 +1,4 @@
-import { Avatar, Typography } from "@mui/material"
+import { Avatar, Typography, Paper } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Stack from "@mui/material/Stack";
@@ -19,7 +19,7 @@ const HotDogCardRight = ({ hotdog }) => {
                 badgeContent={
                     <SmallAvatar alt="Profile Photo" src={hotdog.profile_image} />
             }>
-                <Avatar alt="Hot Dog" src={hotdog.photo} sx={{width: 300, height: 300}}/>
+                <Avatar component={Paper} elevation={5} alt="Hot Dog" src={hotdog.photo} sx={{width: 300, height: 300}}/>
             </Badge>
         </div>
         

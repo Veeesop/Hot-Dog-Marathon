@@ -45,11 +45,23 @@ function* fetchDogCount(action) {
   }
 }
 
+function* setWinner(action) {
+  try {
+    yield axios.put(
+      `competitions/winner/${action.payload.comp_id}`,
+      action.payload.winner
+    );
+  } catch (err) {
+    console.log("Error in setWinner", err);
+  }
+}
+
 function* competitions() {
   yield takeLatest("ADD_NEW_COMPETITION", addCompetition);
   yield takeLatest("ADD_TO_JUNCTION", addToJunction);
   yield takeLatest("FETCH_COMP_INFO", fetchCompInfo);
   yield takeLatest("FETCH_DOG_COUNT", fetchDogCount);
+  yield takeLatest("SET_WINNER", setWinner);
 }
 
 export default competitions;

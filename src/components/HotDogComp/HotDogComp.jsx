@@ -4,17 +4,18 @@ import { useParams, Link } from "react-router-dom";
 import HotDogCardRight from "../HotDogCardRight/HotDogCartRight";
 import HotDogCardLeft from "../HotDogCardLeft/HotDogCardLeft";
 import Bounce from 'react-reveal/Bounce';
-import { Box, Button } from "@mui/material";
+import { Box, Button, Avatar, Paper } from "@mui/material";
 import Stack from "@mui/material/Stack"
 import moment from "moment";
 import "../HotDogComp/HotDogComp.css"
 import CountDownMonths from "../CountDown/CountDown";
-import DateCountdown from 'react-date-countdown-timer';
+import React from 'react';
 
 
 const HotDogComp = () => {
     const dispatch = useDispatch()
     const { id } = useParams()
+    const dateInFuture = new Date('2017-12-31');
     useEffect(() => {
         window.scrollTo(0, 0)
         dispatch({
@@ -39,7 +40,8 @@ const HotDogComp = () => {
 
     console.log(dogCount)
     return (
-        <div>
+        <div className="hot-dog-comp-container">
+            <img src="https://fontmeme.com/permalink/220710/82b88f941d687d1cfc46f34fc954a8e0.png" alt="hot-dog-font" border="0"/>
             <Box sx={{ width: 310,
                     boxShadow: 20,
                     margin: 3,
@@ -47,16 +49,27 @@ const HotDogComp = () => {
                     }}>
         <h2>{comp.name}</h2>
         <p>{comp.description}</p>
-        <CountDownMonths date={comp.end_date}/>
-        <h3>{moment(comp.end_date).format('MMMM DD,YYYY')}</h3>
+        <CountDownMonths date={comp.end_date} comp_id={comp.comp_id} leader={dogCount[0]}/>
+        {/* <h3>{moment(comp.end_date).format('MMMM DD,YYYY')}</h3> */}
+        <div className="player-count">
         {dogCount.map((player)=>{
             return(
-            <div key={player.id}>
-                <h6>{player.username}</h6>
-                <label className="count-label">{player.count}</label>
-            </div>
+                <div className="player">
+                <Avatar
+                alt="Hot Dog Player"
+                src={player.profile_image}
+                sx={{ width: 56, height: 56 }}
+                className="avatar"
+                component={Paper}
+                elevation={3}
+              />
+              <label className="count-label">{player.dog_count} dogs</label>
+              <label className="count-label">{player.username}</label>
+              </div>
             )
         })}
+        </div>
+        
         {user.id === comp.admin_user_id && <Button component={Link} to={`/susDogs/${comp.id}`}>Check Suspicious Dogs</Button>}
         </Box>
         <Box sx={{ width: 310,

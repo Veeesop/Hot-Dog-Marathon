@@ -70,7 +70,7 @@ router.get("/comp/:id", rejectUnauthenticated, (req, res) => {
       res.send(dbRes.rows);
     })
     .catch((err) => {
-      console.log("Error in GET", err);
+      console.log("Error in GET dogs", err);
       res.sendStatus(500);
     });
 });
