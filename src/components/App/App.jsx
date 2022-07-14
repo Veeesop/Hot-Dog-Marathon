@@ -101,7 +101,6 @@ function App() {
               <RegisterPage />
             }
           </Route>
-
           <Route
             exact
             path="/home"

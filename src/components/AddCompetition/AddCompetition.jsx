@@ -51,11 +51,11 @@ const AddCompetition = () =>{
     const fixedOptions = allUsers.filter(player => player.id === user.id)
     const [value, setValue] = React.useState([...fixedOptions]);
 
-    console.log("fixedOptions", fixedOptions)
+  
     
     return (
         <div className="add-hot-dog-container">
-          <img src="https://fontmeme.com/permalink/220710/82b88f941d687d1cfc46f34fc954a8e0.png" alt="hot-dog-font" border="0"/>
+          <img src="https://fontmeme.com/permalink/220714/b8b39ed9b7d039ac7f95a3727894e309.png" alt="hot-dog-font" border="0"/>
           <form onSubmit={handleSubmit}>
              <LocalizationProvider dateAdapter={AdapterMoment}>
              <Paper elevation={3} sx={{
@@ -94,7 +94,7 @@ const AddCompetition = () =>{
                   }
                   style={{ width: 330 }}
                     renderInput={(params) => (
-                    <TextField {...params} label="Fixed tag" placeholder="Players" />
+                    <TextField {...params} label="Players" placeholder="Players" />
                 )}
               />            
                     <TextField

@@ -1,6 +1,22 @@
-.container {
+.landing-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 30px;
+}
+
+.button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.landing-button{
+  
+}
+
+img{
+  margin-top: 100px;
+  margin-bottom: 100px;
 }

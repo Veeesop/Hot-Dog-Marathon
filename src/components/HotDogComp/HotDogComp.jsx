@@ -41,7 +41,7 @@ const HotDogComp = () => {
     console.log(dogCount)
     return (
         <div className="hot-dog-comp-container">
-            <img src="https://fontmeme.com/permalink/220710/82b88f941d687d1cfc46f34fc954a8e0.png" alt="hot-dog-font" border="0"/>
+            <img src="https://fontmeme.com/permalink/220714/b8b39ed9b7d039ac7f95a3727894e309.png" alt="hot-dog-font" border="0"/>
             <Box sx={{ width: 310,
                     boxShadow: 20,
                     margin: 3,
@@ -49,7 +49,7 @@ const HotDogComp = () => {
                     }}>
         <h2>{comp.name}</h2>
         <p>{comp.description}</p>
-        <CountDownMonths date={comp.end_date} comp_id={comp.comp_id} leader={dogCount[0]}/>
+        <CountDownMonths date={comp.end_date} comp_id={comp.comp_id} leader={dogCount[0]} winner={comp.winner}/>
         {/* <h3>{moment(comp.end_date).format('MMMM DD,YYYY')}</h3> */}
         <div className="player-count">
         {dogCount.map((player)=>{

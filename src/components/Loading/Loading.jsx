@@ -1,5 +1,5 @@
 import "./Loading.css"
-import hotdog from "./pngkey.com-hot-dog-png-4352969.png"
+import hotdog from "./hotdog-1.1s-800px.png"
 
 
 const Loading = () => {

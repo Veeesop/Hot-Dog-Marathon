@@ -22,7 +22,7 @@ function UserPage() {
   const userCompetitions = useSelector((store) => store.userCompetitions)
   return (
     <div className='user-container'>
-    <img src="https://fontmeme.com/permalink/220710/82b88f941d687d1cfc46f34fc954a8e0.png" alt="hot-dog-font" border="0"/>
+    <img src="https://fontmeme.com/permalink/220714/b8b39ed9b7d039ac7f95a3727894e309.png" alt="hot-dog-font" border="0"/>
     <Box
       display="flex"
       justifyContent="center"

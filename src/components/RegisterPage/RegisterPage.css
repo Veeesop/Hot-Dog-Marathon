@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 img {
@@ -12,3 +13,4 @@ img {
     margin-bottom: 20px;
     width: 370px;
 }
+

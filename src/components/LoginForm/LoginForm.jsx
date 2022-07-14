@@ -63,7 +63,17 @@ function LoginForm() {
                 value={password}
                 required 
                 onChange={(event) => setPassword(event.target.value)}/>
-          <Button variant='contained' color='primary' type='submit'>Log In</Button>
+          <Button sx={{
+              m:1,
+              bgcolor: "#ebcc34",
+              '&:hover': {
+                backgroundColor: "#f5eb7f"
+              }
+            }}  
+            variant='contained' 
+            type='submit'>
+              Log In
+              </Button>
         </Stack>
       </Paper>
      

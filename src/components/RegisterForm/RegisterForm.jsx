@@ -71,6 +71,7 @@ function RegisterForm() {
     {loading ? <Loading /> :
     <form onSubmit={registerUser}>
           {errors.registrationMessage && (
+            
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
         </h3>
@@ -111,7 +112,14 @@ function RegisterForm() {
               />
             <label htmlFor="contained-button-file">
               <Input accept="image/*" id="contained-button-file" multiple type="file" display='none' value={fileInputState} onChange={imageInputChange}/>
-              <Button variant="contained" component="span">
+              <Button sx={{
+                m:1,
+                bgcolor: "#ebcc34",
+                '&:hover': {
+                  backgroundColor: "#f5eb7f"
+                }
+              }} 
+              variant="contained"  component="span">
                 Profile Pic
               </Button>
             </label>
@@ -123,7 +131,17 @@ function RegisterForm() {
               defaultValue={description}
               onChange={(evt) => setDescription(evt.target.value)}
             />
-            <Button variant='contained' color='primary' type='submit'>Register</Button>
+            <Button sx={{
+              m:1,
+              bgcolor: "#ebcc34",
+              '&:hover': {
+                backgroundColor: "#f5eb7f"
+              }
+            }} 
+              variant='contained' 
+              type='submit'>
+                Register
+                </Button>
           </Stack>
         </Paper>
       </form>

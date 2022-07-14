@@ -6,8 +6,8 @@ function LoginPage() {
   const history = useHistory();
 
   return (
-    <div>
-      <img src="https://fontmeme.com/permalink/220709/fcd6d7f7880d1a6fbb631c061ae68e5c.png" alt="hot-dog-font" border="0"/>
+    <div className='log-in-container'>
+      <img src="https://fontmeme.com/permalink/220714/b8b39ed9b7d039ac7f95a3727894e309.png" alt="hot-dog-font" border="0"/>
       <LoginForm />
 
       <center>

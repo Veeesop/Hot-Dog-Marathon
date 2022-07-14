@@ -4,6 +4,13 @@
     align-items: center;
 }
 
+.log-in-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .hotdog-loader {
     display: flex;
     justify-content: center;

@@ -23,7 +23,6 @@ export const CountdownMonths = ({date, comp_id, leader, winner }) => {
         
     }
   }
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(moment());
@@ -34,6 +33,8 @@ export const CountdownMonths = ({date, comp_id, leader, winner }) => {
 
   return (
     <>
+    {!winner ? 
+    <div>
       <p>Competition Ends In:</p>
       <p className="counter">
         {timeBetween.years() > 0 && <span>{timeBetween.years()} years </span> }
@@ -43,6 +44,10 @@ export const CountdownMonths = ({date, comp_id, leader, winner }) => {
         {timeBetween.minutes() > 0 && <span> {timeBetween.minutes()} min  </span>}
         {timeBetween.seconds() > 0 && <span> {timeBetween.seconds()} sec  </span>}
       </p>
+      </div>
+      :
+      <h2>winner</h2>
+    }
     </>
   );
 };

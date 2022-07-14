@@ -144,4 +144,23 @@ router.get("/dogCount/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/winner/:id", rejectUnauthenticated, (req, res) => {
+  const sqlQuery = `
+    UPDATE competitions
+    SET winner = $1
+    WHERE competitions.id = $2;
+  `;
+
+  const sqlParams = [req.body.winner, req.params.id];
+  pool
+    .query(sqlQuery, sqlParams)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error in PUT", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
