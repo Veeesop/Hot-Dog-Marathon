@@ -37,7 +37,16 @@ const AddCompetition = () =>{
             type: "ADD_NEW_COMPETITION",
             payload: toSend
         })
+        dispatch({
+          type:"FETCH_USER_COMPETITIONS",
+          payload: {
+            id: user.id
+          }
+          })
         setCompAdded(true)
+        setTimeout(() => {
+          history.push('/user')
+        }, 1000)
     }
     const toSend = {
         end_date: moment(valueDate).format('YYYY-MM-DD'),
@@ -115,8 +124,12 @@ const AddCompetition = () =>{
                     renderInput={(params) => <TextField {...params} />}
                   />      
       {!compAdded ? 
-      <Button variant="contained" type='submit'>START COMPETITION</Button> :
-      <Button variant="contained" color='success' component={Link} to='/user'>Back To Profile</Button>
+      <Button variant="contained" type='submit' sx={{ m:3,
+        bgcolor: "#ebcc34",
+        '&:hover': {
+          backgroundColor: "#f5eb7f"
+        }}}>START COMPETITION</Button> :
+      <Button variant="contained" color='success'>Let The Games Begin!</Button>
     }
       </Stack>
       </Box>

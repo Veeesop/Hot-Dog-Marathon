@@ -30,7 +30,11 @@ function UserPage() {
       flexDirection='column'
     >
       <ProfileCard user={user}/>
-      <Link to='/addCompetition'><Button sx={{margin: 3}} variant='contained'>Start A Competition!</Button></Link>
+      <Link to='/addCompetition' style={{ textDecoration: 'none' }}><Button sx={{ m:1,
+              bgcolor: "#ebcc34",
+              '&:hover': {
+                backgroundColor: "#f5eb7f"
+              }}} variant='contained'>Start A Competition!</Button></Link>
     </Box>
    <h2>My Competitions:</h2>
    <Box

@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import HotDogCardRight from "../HotDogCardRight/HotDogCartRight";
-import HotDogCardLeft from "../HotDogCardLeft/HotDogCardLeft";
+import HotDogEntry from "../HotDogEntry/HotDogEntry";
 import Bounce from 'react-reveal/Bounce';
 import { Box, Button, Avatar, Paper } from "@mui/material";
 import Stack from "@mui/material/Stack"
 import moment from "moment";
+import ScrollToTop from "react-scroll-to-top";
 import "../HotDogComp/HotDogComp.css"
 import CountDownMonths from "../CountDown/CountDown";
 import React from 'react';
@@ -36,9 +36,7 @@ const HotDogComp = () => {
     const user = useSelector(store => store.user)
     const comp = useSelector(store => store.activeComp)
     const dogCount= useSelector(store => store.dogCount)
-    const date = `${moment(comp.end_date).format('YYYY-DD-MM')}`
-
-    console.log(dogCount)
+    const date = `${moment(comp.end_date).format('MMMM, DD, YYYY')}`
     return (
         <div className="hot-dog-comp-container">
             <img src="https://fontmeme.com/permalink/220714/b8b39ed9b7d039ac7f95a3727894e309.png" alt="hot-dog-font" border="0"/>
@@ -48,13 +46,17 @@ const HotDogComp = () => {
                     padding: 2
                     }}>
         <h2>{comp.name}</h2>
+        <h3>Competition Admin: <span className="admin">{comp.admin_user_username}</span></h3>
+        <h4>Competition End: {date}</h4>
         <p>{comp.description}</p>
-        <CountDownMonths date={comp.end_date} comp_id={comp.comp_id} leader={dogCount[0]} winner={comp.winner}/>
+        <CountDownMonths date={comp.end_date} comp_id={comp.id} leader={dogCount[0]} winner={comp.winner}/>
         {/* <h3>{moment(comp.end_date).format('MMMM DD,YYYY')}</h3> */}
-        <div className="player-count">
+
+       
+        <div className="player-count" >
         {dogCount.map((player)=>{
             return(
-                <div className="player">
+                <div className="player" key={player.id}>
                 <Avatar
                 alt="Hot Dog Player"
                 src={player.profile_image}
@@ -78,25 +80,18 @@ const HotDogComp = () => {
                     padding: 2
                     }}>
         <Stack spacing={2}>
-        {dogs.map((dog) => {
-            {if(user.id !== dog.user_id) {
-                return(
-                    <Bounce left key={dog.id}>
-                        <HotDogCardLeft className="left" hotdog={dog} sx={{margin: 1}} key={dog.id}/>
-                    </Bounce>
-                    )
-            } else {
+        {dogs.map((dog, index) => {
                 return (
-                    <Bounce right key={dog.id}>
-                        <HotDogCardRight className="right" hotdog={dog} sx={{margin: 1}} key={dog.id}/>
+                    <Bounce right key={index}>
+                        <HotDogEntry hotdog={dog} sx={{margin: 1}} key={dog.id}/>
                     </Bounce>
                     )
-            }
-            } 
-        })}
+            })
+        }
        </Stack>
        </Box>
-        </div>
+    <ScrollToTop smooth/>
+    </div>
     )
 }
 

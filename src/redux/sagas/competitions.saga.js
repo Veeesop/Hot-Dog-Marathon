@@ -47,10 +47,8 @@ function* fetchDogCount(action) {
 
 function* setWinner(action) {
   try {
-    yield axios.put(
-      `competitions/winner/${action.payload.comp_id}`,
-      action.payload.winner
-    );
+    console.log(action.payload);
+    yield axios.put(`competitions/winner/${action.payload.id}`, action.payload);
   } catch (err) {
     console.log("Error in setWinner", err);
   }

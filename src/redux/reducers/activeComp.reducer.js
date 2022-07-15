@@ -1,4 +1,4 @@
-const activeComp = (state = {}, action) => {
+const activeComp = (state = [], action) => {
   switch (action.type) {
     case "SET_ACTIVE_COMP_INFO":
       return action.payload;

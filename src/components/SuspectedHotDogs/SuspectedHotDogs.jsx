@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import HotDogCardLeft from "../HotDogCardLeft/HotDogCardLeft";
+import HotDogEntry from "../HotDogEntry/HotDogEntry";
 import { Button, Box, Stack } from "@mui/material"
 import Bounce from 'react-reveal/Bounce';
-
+import './SuspectedHotDogs.css'
 
 
 const SuspectedHotDogs = () => {
@@ -23,7 +23,7 @@ const SuspectedHotDogs = () => {
             payload: id
         })
     }, [])
-    
+
 
     const handleDelete = (evt) => {
         console.log('delete:',evt.target.id)
@@ -49,7 +49,8 @@ const SuspectedHotDogs = () => {
 
 
     return (
-        <div>
+        <div className="sus-dogs-container">
+            <img src="https://fontmeme.com/permalink/220714/b8b39ed9b7d039ac7f95a3727894e309.png" alt="hot-dog-font" border="0"/>
             <Box sx={{ width: 310,
                     boxShadow: 20,
                     margin: 3,
@@ -69,11 +70,12 @@ const SuspectedHotDogs = () => {
                 return (
                     <div key={dog.id}>
                         <Bounce right>
-                            <HotDogCardLeft className="left" hotdog={dog} sx={{margin: 1}} key={dog.id}/>
+                            <HotDogEntry className="left" hotdog={dog} sx={{margin: 1}} key={dog.id}/>
                             {user.id === comp.admin_user_id && 
                                 <div>
                                     <Button id={dog.id} onClick={handleDelete}>Delete</Button>
                                     <Button id={dog.id} onClick={handleApprove}>Approve</Button>
+                                    <label className="percentage-label">%{dog.probability * 100} probability</label>
                                 </div>}
                         </Bounce>
                     </div>

@@ -43,7 +43,7 @@ const AddHotDog = () => {
             )
         } else {
             return (
-                <h3 className='tag' key='2'>Thats not a hotdog cheater</h3>
+                <h3 className='tag' key='2'>Thats not a hotdog</h3>
             )
         }
     }
@@ -209,7 +209,10 @@ const AddHotDog = () => {
         </div>
         :
         <div>
-            <Button sx={{ m: 1, width: '20ch' }} component={Link} to='/user' variant="contained" type="submit">Cancel</Button>
+            <Button sx={{ m: 1, width: '20ch', 
+              bgcolor: "#e83c2a",
+              '&:hover': {
+                backgroundColor: "#f58478" }}} component={Link} to='/user' variant="contained" type="submit">Cancel</Button>
         </div>
         }
         </Stack>

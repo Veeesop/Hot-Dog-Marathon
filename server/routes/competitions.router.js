@@ -158,7 +158,7 @@ router.put("/winner/:id", rejectUnauthenticated, (req, res) => {
       res.sendStatus(200);
     })
     .catch((err) => {
-      console.log("error in PUT", err);
+      console.log("error in Put", err);
       res.sendStatus(500);
     });
 });

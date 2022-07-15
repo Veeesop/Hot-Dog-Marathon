@@ -52,6 +52,8 @@ function RegisterForm() {
     }
   }
 
+
+
   const registerUser = (event) => {
     event.preventDefault();
     setLoading(true)
@@ -68,7 +70,16 @@ function RegisterForm() {
 
   return (
     <>
-    {loading ? <Loading /> :
+    {loading ? 
+      <div>
+            {errors.registrationMessage && (
+            
+            <h3 className="alert" role="alert">
+              {errors.registrationMessage}
+              {setLoading(false)}
+            </h3>)}
+            <Loading /> 
+      </div>:
     <form onSubmit={registerUser}>
           {errors.registrationMessage && (
             

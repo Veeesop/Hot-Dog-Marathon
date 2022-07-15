@@ -8,7 +8,7 @@ function LogOutButton(props) {
 
   const handleClick = () => {
     dispatch({ type: 'LOGOUT' })
-    history.push("/home")
+    history.push("/user")
   }
   return (
     <button

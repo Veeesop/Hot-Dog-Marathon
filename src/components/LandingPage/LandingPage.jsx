@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@mui/material'
 import Zoom from 'react-reveal'
+import Flip from 'react-reveal'
+import Jump from 'react-reveal/Jump';
 import hotdog from "../Loading/hotdog-1.1s-800px.png"
 import './LandingPage.css';
 
-// CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
 
 function LandingPage() {
-  const [heading, setHeading] = useState('Welcome');
   const history = useHistory();
 
   const onLogin = (event) => {
@@ -18,13 +17,16 @@ function LandingPage() {
 
   return (
     <div className="landing-container">
-      <Zoom top>
+      <Jump forever duration={3000}>
       <img src="https://fontmeme.com/permalink/220714/b8b39ed9b7d039ac7f95a3727894e309.png" alt="hot-dog-font" border="0"/>
-      </Zoom>
+      </Jump>
         <div className='button-container'>
           <Button sx={{
               m:1,
-              bgcolor: "#ebcc34"
+              bgcolor: "#ebcc34",
+              '&:hover': {
+                backgroundColor: "#f5eb7f"
+              }
             }} 
           type="button"
           className='landing-button'
@@ -34,7 +36,10 @@ function LandingPage() {
           }} >Log In</Button>
           <Button sx={{
             m:1,
-            bgcolor: "#ebcc34"
+            bgcolor: "#ebcc34",
+            '&:hover': {
+              backgroundColor: "#f5eb7f"
+            }
           }}
           type="button"
           className='landing-button'
@@ -43,8 +48,10 @@ function LandingPage() {
             history.push('/registration');
           }} >Register</Button>
         </div>
-        <Zoom bottom>
-          <img src={hotdog} alt='hotdog'/>
+        <Zoom bottom delay={3000}>
+            <Flip forever bottom>
+              <img src={hotdog} alt='hotdog'/>
+            </Flip>
         </Zoom>
         
     </div>

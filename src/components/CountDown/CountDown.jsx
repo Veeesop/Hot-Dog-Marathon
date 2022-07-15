@@ -1,39 +1,37 @@
 import { useState, useEffect } from 'react'
 import moment from "moment"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import '../CountDown/CountDown.css'
 
 
 
-export const CountdownMonths = ({date, comp_id, leader, winner }) => {
-
-    const dispatch = useDispatch()
-    const targetTime = moment(date);
+const CountdownMonths = () => {
+  const user = useSelector(store => store.user)
+  const comp = useSelector(store => store.activeComp)
+  const dogCount= useSelector(store => store.dogCount)
+  const dispatch = useDispatch()
+  const targetTime = moment(comp.end_date);
   const [currentTime, setCurrentTime] = useState(moment());
-
+  
   const timeBetween = moment.duration(targetTime.diff(currentTime));
-  const isComplete = (timeDiff) => {
-    if(timeDiff > 0){
+  const isComplete = () => {
         dispatch({
             type: "SET_WINNER",
             payload: {
-                comp_id: comp_id,
+                comp_id: id,
                 winner: leader
         }})
-        
     }
-  }
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(moment());
     }, 1000);
-    isComplete(timeBetween)
     return () => clearInterval(interval);
   }, []);
 
   return (
     <>
-    {!winner ? 
+    {timeBetween > 0 ? 
     <div>
       <p>Competition Ends In:</p>
       <p className="counter">
@@ -46,7 +44,10 @@ export const CountdownMonths = ({date, comp_id, leader, winner }) => {
       </p>
       </div>
       :
-      <h2>winner</h2>
+      <div className='winner'>
+        <h2>winner is HotDogDestroyer</h2>
+        {/* {isComplete} */}
+      </div>
     }
     </>
   );

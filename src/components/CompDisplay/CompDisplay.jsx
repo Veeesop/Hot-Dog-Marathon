@@ -19,12 +19,18 @@ const CompDisplay = ({comps}) => {
             width: 330,
             backgroundColor: 'whitesmoke'
     }}>
-        {comps.map((comp) => {
+        {comps.map((comp, index) => {
             return (
+                <div key={index}>
+                {!comp.winner ? 
                 <IconButton className="iconButton" key={`${comp.name}`} component={Link} to={`competition/${comp.id}`} >
                     <GiHotDog className="react-icons" aria-label={`${comp.name}`} />
                     <label className="comp-label">{comp.name}</label>
                 </IconButton>
+                :
+                <h1>this test</h1>
+                }
+                </div>
             )
         })}
         </Paper>
