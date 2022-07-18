@@ -16,11 +16,9 @@ cloudinary.config({
 router.post("/photo", rejectUnauthenticated, async (req, res) => {
   try {
     const hotDogImage = req.body.photo;
-    // console.log(hotDogImage);
     const uploadedResponse = await cloudinary.uploader.upload(hotDogImage, {
       upload_preset: "hotdogs",
     });
-    console.log(uploadedResponse.url);
     res.send(uploadedResponse.url);
   } catch (err) {
     console.error(err);

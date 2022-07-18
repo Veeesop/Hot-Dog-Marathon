@@ -151,7 +151,7 @@ router.put("/winner/:id", rejectUnauthenticated, (req, res) => {
     WHERE competitions.id = $2;
   `;
 
-  const sqlParams = [req.body.winner, req.params.id];
+  const sqlParams = [req.body.winner.username, Number(req.params.id)];
   pool
     .query(sqlQuery, sqlParams)
     .then(() => {

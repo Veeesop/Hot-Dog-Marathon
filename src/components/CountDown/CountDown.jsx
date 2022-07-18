@@ -5,23 +5,17 @@ import '../CountDown/CountDown.css'
 
 
 
-const CountdownMonths = () => {
+const CountdownMonths = ({id, date, leader}) => {
   const user = useSelector(store => store.user)
   const comp = useSelector(store => store.activeComp)
   const dogCount= useSelector(store => store.dogCount)
   const dispatch = useDispatch()
   const targetTime = moment(comp.end_date);
   const [currentTime, setCurrentTime] = useState(moment());
-  
   const timeBetween = moment.duration(targetTime.diff(currentTime));
-  const isComplete = () => {
-        dispatch({
-            type: "SET_WINNER",
-            payload: {
-                comp_id: id,
-                winner: leader
-        }})
-    }
+  
+  const currentDateTime = new Date(moment())
+     
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(moment());
@@ -29,6 +23,7 @@ const CountdownMonths = () => {
     return () => clearInterval(interval);
   }, []);
 
+  
   return (
     <>
     {timeBetween > 0 ? 
@@ -45,7 +40,8 @@ const CountdownMonths = () => {
       </div>
       :
       <div className='winner'>
-        <h2>winner is HotDogDestroyer</h2>
+        {new Date(comp.end_date) < currentDateTime && <h2>winner is {leader.username}</h2> }
+        {/* <h2>winner is HotDogDestroyer</h2> */}
         {/* {isComplete} */}
       </div>
     }

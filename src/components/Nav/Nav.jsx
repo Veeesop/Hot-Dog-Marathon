@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { Paper, BottomNavigationAction, BottomNavigation } from '@mui/material'
@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 
 function Nav() {
   const dispatch = useDispatch()
+  const history = useHistory()
   const user = useSelector((store) => store.user);
   const [value, setValue] = useState(0);
   return (

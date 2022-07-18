@@ -9,8 +9,30 @@ function AboutPage() {
   return (
     <div className="container">
       <div>
-        <p>This about page is for anyone to read!</p>
+        <h1>About</h1>
+        <h2>Special Thanks:</h2>
+        <ul>
+          <li>Nick Wiess</li>
+          <li>Stephanie Ratanas</li>
+          <li>Jeannie Branstrator</li>
+          <li>Prime Academy</li>
+        </ul>
+        <h2>Technologies Used:</h2>
+        <ul>
+          <li>React</li>
+          <li>Redux</li>
+          <li>Redux Sagas</li>
+          <li>Node.js</li>
+          <li>Express</li>
+          <li>TensorFlow.js</li>
+          <li>Cloudinary Api</li>
+        </ul>
       </div>
+      <div>
+        <h2>github.com/Veeesop</h2>
+        <h2>Alex Ratanas</h2>
+      </div>
+      
     </div>
   );
 }

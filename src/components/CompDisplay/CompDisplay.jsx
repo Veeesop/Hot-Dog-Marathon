@@ -1,8 +1,12 @@
 import { Paper, IconButton } from "@mui/material"
 import { Link } from "react-router-dom"
-import { GiHotDog } from "react-icons/gi";
+import { GiHotDog, GiTrophyCup } from "react-icons/gi";
+import { BsTrophyFill } from "react-icons/bs"
+import moment from 'moment'
 
 import '../CompDisplay/CompDisplay.css'
+
+const currentTime = new Date(moment())
 
 
 
@@ -19,16 +23,21 @@ const CompDisplay = ({comps}) => {
             width: 330,
             backgroundColor: 'whitesmoke'
     }}>
+        
         {comps.map((comp, index) => {
             return (
                 <div key={index}>
-                {!comp.winner ? 
-                <IconButton className="iconButton" key={`${comp.name}`} component={Link} to={`competition/${comp.id}`} >
+                   
+                {new Date(comp.end_date) > currentTime ? 
+                <IconButton sx={{ color: "#65c456" }} className="iconButton" component={Link} to={`competition/${comp.id}`} >
                     <GiHotDog className="react-icons" aria-label={`${comp.name}`} />
                     <label className="comp-label">{comp.name}</label>
                 </IconButton>
                 :
-                <h1>this test</h1>
+                <IconButton sx={{ color: "#d6cb31" }} className="iconButton" component={Link} to={`competition/${comp.id}`} >
+                    <GiTrophyCup className="react-icons" aria-label={`${comp.name}`} />
+                    <label className="comp-label">{comp.name}</label>
+                </IconButton>
                 }
                 </div>
             )

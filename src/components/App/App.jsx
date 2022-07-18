@@ -78,6 +78,9 @@ function App() {
           <ProtectedRoute exact path="/info">
             <InfoPage />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/about">
+            <AboutPage/>
+          </ProtectedRoute>
           <Route exact path="/login">
             {user.id ?
               // If the user is already logged in, 

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Prompt } from "react-router-dom";
 import HotDogEntry from "../HotDogEntry/HotDogEntry";
 import Bounce from 'react-reveal/Bounce';
 import { Box, Button, Avatar, Paper } from "@mui/material";
@@ -11,25 +11,29 @@ import "../HotDogComp/HotDogComp.css"
 import CountDownMonths from "../CountDown/CountDown";
 import React from 'react';
 
+const currentTime = new Date(moment())
 
 const HotDogComp = () => {
     const dispatch = useDispatch()
     const { id } = useParams()
-    const dateInFuture = new Date('2017-12-31');
     useEffect(() => {
-        window.scrollTo(0, 0)
         dispatch({
-            type: "FETCH_ALL_COMP_DOGS",
+            type: "SET_CURRENT_COMP",
             payload: id
         })
-        dispatch({
-            type: "FETCH_COMP_INFO",
-            payload: id
-        })
-        dispatch({
-            type: "FETCH_DOG_COUNT",
-            payload: id
-        })
+
+        // dispatch({
+        //     type: "FETCH_ALL_COMP_DOGS",
+        //     payload: id
+        // })
+        // dispatch({
+        //     type: "FETCH_COMP_INFO",
+        //     payload: id
+        // })
+        // dispatch({
+        //     type: "FETCH_DOG_COUNT",
+        //     payload: id
+        // })
 
     }, [])
     const dogs = useSelector(store => store.hotdogReducer)
@@ -37,6 +41,9 @@ const HotDogComp = () => {
     const comp = useSelector(store => store.activeComp)
     const dogCount= useSelector(store => store.dogCount)
     const date = `${moment(comp.end_date).format('MMMM, DD, YYYY')}`
+   
+    
+   
     return (
         <div className="hot-dog-comp-container">
             <img src="https://fontmeme.com/permalink/220714/b8b39ed9b7d039ac7f95a3727894e309.png" alt="hot-dog-font" border="0"/>
@@ -47,13 +54,15 @@ const HotDogComp = () => {
                     }}>
         <h2>{comp.name}</h2>
         <h3>Competition Admin: <span className="admin">{comp.admin_user_username}</span></h3>
+        {/* <h4>{winner}</h4> */}
         <h4>Competition End: {date}</h4>
-        <p>{comp.description}</p>
-        <CountDownMonths date={comp.end_date} comp_id={comp.id} leader={dogCount[0]} winner={comp.winner}/>
+        {console.log(new Date(comp.end_date) < currentTime) }
+        <CountDownMonths date={comp.end_date} id={id} leader={dogCount[0]} winner={comp.winner}/>
         {/* <h3>{moment(comp.end_date).format('MMMM DD,YYYY')}</h3> */}
 
-       
+        
         <div className="player-count" >
+    
         {dogCount.map((player)=>{
             return(
                 <div className="player" key={player.id}>
@@ -90,6 +99,7 @@ const HotDogComp = () => {
         }
        </Stack>
        </Box>
+      
     <ScrollToTop smooth/>
     </div>
     )
